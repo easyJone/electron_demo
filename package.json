@@ -4,7 +4,7 @@
   "description": "electron学习之路",
   "main": "main.js",
   "scripts": {
-    "dev": "npx electron .",
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
