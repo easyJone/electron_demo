@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>我是子窗口</div>
+  <div id="btn">传递信息给父窗口</div>
+
+  <script>
+    const btn = document.getElementById("btn")
+    btn.onclick = function () {
+      window.opener.postMessage('我是子窗口的信息') // 参数2：targetOrigin标识传递的父窗口，不传默认全部
+    }
+  </script>
+</body>
+</html>
