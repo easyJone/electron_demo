@@ -33,7 +33,15 @@ let rendererConfig = {
     rules: [
       {
         test: /\.scss$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader']
+        use: ['vue-style-loader', 'css-loader', 'sass-loader'
+          // sass-resources-loader全局注入scss样式
+          , {
+            loader: "sass-resources-loader",
+            options: {
+              resources: path.resolve(__dirname, '../src/renderer/styles/globals.scss')
+            }
+          }
+        ]
       },
       {
         test: /\.sass$/,
@@ -70,6 +78,10 @@ let rendererConfig = {
               sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax=1',
               scss: 'vue-style-loader!css-loader!sass-loader',
               less: 'vue-style-loader!css-loader!less-loader'
+              // // 注入全局样式
+              // sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax=1&data=@import "./src/renderer/styles/globals"',
+              // scss: 'vue-style-loader!css-loader!sass-loader?data=@import "./src/renderer/styles/globals"',
+              // less: 'vue-style-loader!css-loader!less-loader?data=@import "./src/renderer/styles/globals"'
             }
           }
         }
@@ -110,11 +122,11 @@ let rendererConfig = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new MiniCssExtractPlugin({filename: 'styles.css'}),
+    new MiniCssExtractPlugin({ filename: 'styles.css' }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, '../src/index.ejs'),
-      templateParameters(compilation, assets, options) {
+      templateParameters (compilation, assets, options) {
         return {
           compilation: compilation,
           webpack: compilation.getStats().toJson(),
